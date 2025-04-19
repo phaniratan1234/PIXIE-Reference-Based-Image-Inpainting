@@ -1,0 +1,120 @@
+# Comprehensive Inpainting Model Configuration
+
+# Dataset configuration
+data_root: "data/coco-processed"  # Path to processed COCO-Stuff dataset
+dataset:
+  train:
+    image_size: 256
+    mask_type: "random"  # Options: "random", "bbox", "segmentation"
+    augmentation: true
+    max_samples: null  # Set to integer to limit training samples
+  val:
+    image_size: 256
+    mask_type: "random"
+    augmentation: false
+    max_samples: 1000  # Limit validation samples
+
+# Model configuration
+model:
+  # Base model parameters
+  input_channels: 3
+  output_channels: 3
+  latent_channels: 256
+  
+  # Component enablement
+  enable_scene_classification: true
+  enable_object_detection: true
+  enable_structural_analysis: true
+  enable_uncertainty_estimation: true
+  enable_exemplar_guidance: false  # Use exemplar images for guidance
+  
+  # Scene classifier
+  scene_classifier:
+    backbone: "resnet50"
+    pretrained: true
+    num_classes: 182  # For COCO-Stuff (182 categories)
+    freeze_backbone: true
+    
+  # Object detector
+  object_detector:
+    backbone: "yolov5s"
+    pretrained: true
+    confidence_threshold: 0.25
+    nms_threshold: 0.45
+    freeze_backbone: true
+    
+  # Structural analyzer
+  structural_analyzer:
+    type: "unet"
+    in_channels: 3
+    out_channels: 32
+    base_channels: 64
+    depth: 5
+    use_attention: true
+    
+  # Uncertainty estimator
+  uncertainty_estimator:
+    type: "bayesian"
+    monte_carlo_samples: 5
+    dropout_rate: 0.1
+    
+  # Structure builder
+  structure_builder:
+    type: "unet"
+    in_channels: 4  # 3 RGB + 1 mask
+    out_channels: 3
+    base_channels: 64
+    depth: 7
+    use_attention: true
+    use_spectral_norm: true
+    
+  # Texture artist
+  texture_artist:
+    type: "unet"
+    in_channels: 7  # 3 RGB + 1 mask + 3 structure
+    out_channels: 3
+    base_channels: 64
+    depth: 7
+    use_attention: true
+    use_spectral_norm: true
+
+# Training configuration
+training:
+  # Optimization
+  optimizer:
+    type: "adam"
+    lr: 0.0001
+    betas: [0.9, 0.999]
+    weight_decay: 0.0001
+    
+  # Learning rate scheduler
+  scheduler:
+    type: "cosine"
+    warmup_epochs: 5
+    min_lr: 0.000001
+  
+  # Loss weights
+  losses:
+    l1_weight: 1.0
+    perceptual_weight: 0.1
+    style_weight: 250.0
+    adversarial_weight: 0.1
+    structure_weight: 1.0
+    scene_weight: 0.05
+    object_weight: 0.05
+    uncertainty_weight: 0.5
+
+# Evaluation configuration
+evaluation:
+  metrics:
+    - "psnr"
+    - "ssim"
+    - "lpips"
+    - "fid"
+  best_metric: "fid"  # Metric to use for best model selection
+  lower_is_better: true  # For FID, lower is better
+
+# Device configuration
+device:
+  type: "auto"  # "auto", "cuda", "mps", "cpu"
+  disable_mps: false 

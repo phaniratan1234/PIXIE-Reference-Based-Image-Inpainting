@@ -1,0 +1,113 @@
+# Data Configuration
+data:
+  dataset: 'coco-stuff'
+  data_root: './data/coco-processed'
+  train_split: 'train'
+  val_split: 'val'
+  image_size: 512
+  batch_size: 8
+  num_workers: 4
+  
+# Mask Generation
+mask:
+  type: 'mixed'  # Options: 'object', 'boundary', 'damage', 'mixed'
+  min_size: 0.1  # Minimum mask size as fraction of image
+  max_size: 0.5  # Maximum mask size as fraction of image
+  irregular_prob: 0.7  # Probability of generating irregular masks
+  boundary_prob: 0.3  # Probability of generating boundary-crossing masks
+  object_prob: 0.4  # Probability of generating object-aware masks
+  
+# Model Configuration
+model:
+  # Detection Module (YOLOv5)
+  detection:
+    enabled: true
+    pretrained: true
+    version: 's'  # Options: n, s, m, l, x
+    confidence_threshold: 0.5
+    
+  # Scene Classification Module
+  scene:
+    enabled: true
+    backbone: 'resnet50'
+    pretrained: true
+    num_classes: 182  # COCO-Stuff categories
+    
+  # Structural Analysis Module
+  structure:
+    enabled: true
+    edge_detection: true
+    line_detection: true
+    pattern_recognition: true
+    
+  # Uncertainty Estimation Network
+  uncertainty:
+    enabled: true
+    channels: 64
+    num_blocks: 6
+    attention_heads: 8
+    
+  # Structure Builder Network
+  builder:
+    channels: 128
+    num_blocks: 8
+    attention_enabled: true
+    multi_scale: true
+    
+  # Texture Artist Network
+  texture:
+    channels: 128
+    num_blocks: 8
+    style_transfer: true
+    noise_injection: true
+    
+  # Discriminator
+  discriminator:
+    type: 'patch'  # Options: 'patch', 'multi_scale'
+    channels: 64
+    num_blocks: 4
+
+# Training Configuration
+training:
+  device: 'mps'  # Options: 'cpu', 'cuda', 'mps'
+  epochs: 50
+  lr: 0.0001
+  weight_decay: 0.0001
+  scheduler: 'cosine'  # Options: 'cosine', 'step', 'plateau'
+  
+  # Loss weights
+  losses:
+    reconstruction: 10.0
+    perceptual: 1.0
+    style: 250.0
+    adversarial: 0.1
+    
+  # Optimization
+  optimizer: 'adam'  # Options: 'adam', 'sgd', 'adamw'
+  beta1: 0.5
+  beta2: 0.999
+  
+  # Checkpointing
+  save_freq: 5000  # Save checkpoint every N steps
+  log_freq: 100  # Log metrics every N steps
+  validation_freq: 1000  # Run validation every N steps
+  
+# Evaluation Configuration
+evaluation:
+  metrics:
+    - 'psnr'
+    - 'ssim'
+    - 'lpips'
+    - 'fid'
+  batch_size: 16
+  
+# Inference Configuration
+inference:
+  ensemble: true  # Whether to use ensemble of models
+  tta: true  # Test-time augmentation
+  
+# Logging
+logging:
+  use_wandb: false
+  wandb_project: 'image_inpainting'
+  use_tensorboard: true 
