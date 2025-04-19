@@ -1,0 +1,155 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Advanced Image Inpainting System Architecture</text>
+  
+  <!-- Input Section -->
+  <g transform="translate(50, 80)">
+    <rect x="0" y="0" width="180" height="120" fill="#fff" stroke="#ddd" stroke-width="2" rx="10"/>
+    <text x="90" y="25" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Input Image</text>
+    <rect x="20" y="40" width="140" height="70" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+    <rect x="60" y="60" width="40" height="30" fill="#ff6b6b" stroke="#e03131" stroke-width="2"/>
+    <text x="90" y="130" font-size="12" text-anchor="middle" fill="#666">Masked Region</text>
+  </g>
+  
+  <!-- Exemplar Section -->
+  <g transform="translate(50, 220)">
+    <rect x="0" y="0" width="180" height="120" fill="#fff" stroke="#ddd" stroke-width="2" rx="10"/>
+    <text x="90" y="25" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Exemplar Image</text>
+    <rect x="20" y="40" width="140" height="70" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+    <circle cx="90" cy="75" r="20" fill="#4dabf7" stroke="#339af0" stroke-width="2"/>
+    <text x="90" y="130" font-size="12" text-anchor="middle" fill="#666">Style Reference</text>
+  </g>
+  
+  <!-- Phase 1: Semantic Analysis -->
+  <g transform="translate(250, 80)">
+    <rect x="0" y="0" width="250" height="400" fill="#f1f3f5" stroke="#dee2e6" stroke-width="2" rx="10"/>
+    <text x="125" y="25" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Phase 1: Semantic Analysis</text>
+    
+    <!-- Object Detection -->
+    <rect x="20" y="50" width="210" height="80" fill="#fff" stroke="#339af0" stroke-width="2" rx="5"/>
+    <text x="125" y="75" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Object Detection</text>
+    <text x="125" y="95" font-size="12" text-anchor="middle" fill="#666">YOLOv5</text>
+    <rect x="40" y="105" width="40" height="20" fill="#ffd43b" stroke="#fab005" stroke-width="1"/>
+    <rect x="100" y="105" width="40" height="20" fill="#69db7c" stroke="#40c057" stroke-width="1"/>
+    <rect x="160" y="105" width="40" height="20" fill="#ff8787" stroke="#fa5252" stroke-width="1"/>
+    
+    <!-- Scene Classification -->
+    <rect x="20" y="150" width="210" height="80" fill="#fff" stroke="#339af0" stroke-width="2" rx="5"/>
+    <text x="125" y="175" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Scene Classification</text>
+    <text x="125" y="195" font-size="12" text-anchor="middle" fill="#666">ResNet50 (Places365)</text>
+    <text x="125" y="215" font-size="10" text-anchor="middle" fill="#666">Indoor/Outdoor, Urban/Nature</text>
+    
+    <!-- Structural Analysis -->
+    <rect x="20" y="250" width="210" height="80" fill="#fff" stroke="#339af0" stroke-width="2" rx="5"/>
+    <text x="125" y="275" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Structural Analysis</text>
+    <text x="125" y="295" font-size="12" text-anchor="middle" fill="#666">Edge Detection + Patterns</text>
+    <line x1="40" y1="310" x2="210" y2="310" stroke="#495057" stroke-width="2"/>
+    <line x1="125" y1="310" x2="125" y2="320" stroke="#495057" stroke-width="2"/>
+    
+    <!-- Semantic Understanding -->
+    <rect x="20" y="350" width="210" height="40" fill="#fff8dc" stroke="#ffa94d" stroke-width="2" rx="5"/>
+    <text x="125" y="375" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Semantic Understanding</text>
+  </g>
+  
+  <!-- Phase 2: Uncertainty Estimation -->
+  <g transform="translate(530, 80)">
+    <rect x="0" y="0" width="250" height="150" fill="#f1f3f5" stroke="#dee2e6" stroke-width="2" rx="10"/>
+    <text x="125" y="25" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Phase 2: Uncertainty Estimation</text>
+    
+    <!-- Uncertainty Map -->
+    <rect x="20" y="50" width="210" height="80" fill="#fff" stroke="#40c057" stroke-width="2" rx="5"/>
+    <text x="125" y="75" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Confidence Scoring</text>
+    <rect x="40" y="90" width="170" height="30" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+    <rect x="40" y="90" width="30" height="30" fill="#37b24d" opacity="0.9"/>
+    <rect x="70" y="90" width="40" height="30" fill="#37b24d" opacity="0.6"/>
+    <rect x="110" y="90" width="50" height="30" fill="#37b24d" opacity="0.3"/>
+    <rect x="160" y="90" width="50" height="30" fill="#f03e3e" opacity="0.3"/>
+  </g>
+  
+  <!-- Adaptive Unmasking -->
+  <g transform="translate(530, 250)">
+    <rect x="0" y="0" width="250" height="100" fill="#f1f3f5" stroke="#dee2e6" stroke-width="2" rx="10"/>
+    <text x="125" y="25" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Adaptive Unmasking</text>
+    <text x="125" y="50" font-size="12" text-anchor="middle" fill="#666">Priority-based progression</text>
+    <rect x="40" y="60" width="50" height="30" fill="#69db7c" stroke="#40c057" stroke-width="1"/>
+    <rect x="95" y="60" width="50" height="30" fill="#ffd43b" stroke="#fab005" stroke-width="1"/>
+    <rect x="150" y="60" width="50" height="30" fill="#ff8787" stroke="#fa5252" stroke-width="1"/>
+    <path d="M65 90 L120 90 L120 80 L140 75 L120 70 L120 60" fill="none" stroke="#6741d9" stroke-width="2" marker-end="url(#arrowhead)"/>
+  </g>
+  
+  <!-- Phase 3: Dual-Channel Processing -->
+  <g transform="translate(810, 80)">
+    <rect x="0" y="0" width="340" height="400" fill="#f1f3f5" stroke="#dee2e6" stroke-width="2" rx="10"/>
+    <text x="170" y="25" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Phase 3: Dual-Channel Processing</text>
+    
+    <!-- Structure Builder -->
+    <rect x="20" y="50" width="300" height="130" fill="#fff" stroke="#6741d9" stroke-width="2" rx="5"/>
+    <text x="170" y="75" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Structure Builder Network</text>
+    <text x="170" y="95" font-size="12" text-anchor="middle" fill="#666">Boundaries + Object Layout</text>
+    <rect x="40" y="105" width="260" height="60" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+    <path d="M40 135 L300 135" stroke="#495057" stroke-width="2" stroke-dasharray="5,5"/>
+    <circle cx="170" cy="135" r="5" fill="#6741d9"/>
+    
+    <!-- Texture Artist -->
+    <rect x="20" y="200" width="300" height="130" fill="#fff" stroke="#6741d9" stroke-width="2" rx="5"/>
+    <text x="170" y="225" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Texture Artist Network</text>
+    <text x="170" y="245" font-size="12" text-anchor="middle" fill="#666">Surface Details + Style Transfer</text>
+    <rect x="40" y="255" width="260" height="60" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+    <pattern id="texture" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#4dabf7" opacity="0.3"/>
+      <circle cx="5" cy="5" r="3" fill="#4dabf7" opacity="0.5"/>
+    </pattern>
+    <rect x="40" y="255" width="260" height="60" fill="url(#texture)"/>
+    
+    <!-- Fusion Module -->
+    <rect x="20" y="350" width="300" height="40" fill="#fff8dc" stroke="#ffa94d" stroke-width="2" rx="5"/>
+    <text x="170" y="375" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Feature Fusion Module</text>
+  </g>
+  
+  <!-- Output -->
+  <g transform="translate(900, 500)">
+    <rect x="0" y="0" width="180" height="120" fill="#fff" stroke="#ddd" stroke-width="2" rx="10"/>
+    <text x="90" y="25" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Output Image</text>
+    <rect x="20" y="40" width="140" height="70" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+    <rect x="60" y="60" width="40" height="30" fill="#d0bfff" stroke="#9775fa" stroke-width="2"/>
+    <text x="90" y="130" font-size="12" text-anchor="middle" fill="#666">Completed Result</text>
+  </g>
+  
+  <!-- Arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#495057"/>
+    </marker>
+  </defs>
+  
+  <!-- Flow arrows -->
+  <path d="M230 140 L250 140" stroke="#495057" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <path d="M230 280 L250 280" stroke="#495057" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <path d="M500 280 L530 280" stroke="#495057" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <path d="M780 155 L810 155" stroke="#495057" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <path d="M780 300 L810 300" stroke="#495057" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <path d="M980 400 L980 500" stroke="#495057" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Legend -->
+  <g transform="translate(50, 500)">
+    <rect x="0" y="0" width="200" height="120" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
+    <text x="100" y="20" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Legend</text>
+    
+    <!-- Colors -->
+    <rect x="10" y="35" width="20" height="10" fill="#339af0"/>
+    <text x="40" y="45" font-size="12" fill="#333">Semantic Analysis</text>
+    
+    <rect x="10" y="55" width="20" height="10" fill="#40c057"/>
+    <text x="40" y="65" font-size="12" fill="#333">Uncertainty Estimation</text>
+    
+    <rect x="10" y="75" width="20" height="10" fill="#6741d9"/>
+    <text x="40" y="85" font-size="12" fill="#333">Dual-Channel Processing</text>
+    
+    <rect x="10" y="95" width="20" height="10" fill="#ffa94d"/>
+    <text x="40" y="105" font-size="12" fill="#333">Fusion/Integration</text>
+  </g>
+  
+</svg>
