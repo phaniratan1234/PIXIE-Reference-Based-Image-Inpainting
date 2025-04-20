@@ -1,7 +1,7 @@
 # Comprehensive Inpainting Model Configuration
 
 # Dataset configuration
-data_root: "data/coco-processed"  # Path to processed COCO-Stuff dataset
+data_root: "data/coco-processed-fixed"  # Path to processed COCO-Stuff dataset
 dataset:
   train:
     image_size: 256
@@ -32,7 +32,7 @@ model:
   scene_classifier:
     backbone: "resnet50"
     pretrained: true
-    num_classes: 182  # For COCO-Stuff (182 categories)
+    num_classes: 172  # For COCO-Stuff 10K (80 things + 91 stuff + 1 unlabeled)
     freeze_backbone: true
     
   # Object detector

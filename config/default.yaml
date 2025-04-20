@@ -1,10 +1,10 @@
 # Data Configuration
 data:
   dataset: 'coco-stuff'
-  data_root: './data/coco-processed'
+  data_root: './data/coco-processed-fixed'
   train_split: 'train'
   val_split: 'val'
-  image_size: 512
+  image_size: 256
   batch_size: 8
   num_workers: 4
   
@@ -31,7 +31,7 @@ model:
     enabled: true
     backbone: 'resnet50'
     pretrained: true
-    num_classes: 182  # COCO-Stuff categories
+    num_classes: 172  # COCO-Stuff 10K (80 things + 91 stuff + 1 unlabeled)
     
   # Structural Analysis Module
   structure:
